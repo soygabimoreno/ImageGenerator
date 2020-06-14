@@ -5,13 +5,18 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import androidx.core.view.drawToBitmap
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.io.File
 import java.io.FileOutputStream
 
 class MainViewModel : ViewModel() {
 
-    fun exportPNG(view: View) {
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String> = _text
+
+    fun exportPNG(view: View, text: String) {
         val bitmap = view.drawToBitmap()
         val applicationContext = view.context.applicationContext
         val dir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -27,5 +32,11 @@ class MainViewModel : ViewModel() {
             file.name,
             file.name
         )
+
+        showOutPutParameters(text)
+    }
+
+    private fun showOutPutParameters(text: String) {
+        _text.value = text
     }
 }
