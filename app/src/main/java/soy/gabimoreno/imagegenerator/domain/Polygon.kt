@@ -3,7 +3,7 @@ package soy.gabimoreno.imagegenerator.domain
 enum class Polygon(
     val letter: String,
     val nSides: Int,
-    val hsb: Int
+    val hue: Int
 ) {
     A("A", 3, 0),
     B("B", 4, 14),
@@ -33,6 +33,6 @@ enum class Polygon(
     Z("Z", 28, 346);
 
     override fun toString(): String {
-        return "letter: $letter, nSides: $nSides, hsb: $hsb"
+        return "letter: $letter, nSides: $nSides, hue: $hue"
     }
 }
