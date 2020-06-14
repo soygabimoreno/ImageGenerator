@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ImageGenerator</string>
+    <string name="app_name">Image Generator</string>
+    <string name="generate">GENERATE</string>
+    <string name="write_a_text">Write a text...</string>
 </resources>
