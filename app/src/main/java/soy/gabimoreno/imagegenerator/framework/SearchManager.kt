@@ -11,7 +11,7 @@ class SearchManager(
 
     companion object {
         const val CHARS_SEARCH_LENGTH = 2
-        const val DELAY_IN_MILLIS = 500L
+        const val DELAY_IN_MILLIS = 50L
     }
 
     interface Listener {

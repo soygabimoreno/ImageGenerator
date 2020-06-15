@@ -1,6 +1,7 @@
 package soy.gabimoreno.imagegenerator.presentation
 
 import android.graphics.Bitmap.CompressFormat
+import android.graphics.Color
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
@@ -8,17 +9,25 @@ import androidx.core.view.drawToBitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import soy.gabimoreno.imagegenerator.domain.BRIGHTNESS
 import soy.gabimoreno.imagegenerator.domain.Calculator
+import soy.gabimoreno.imagegenerator.domain.SATURATION
+import soy.gabimoreno.imagegenerator.domain.mapNumber
 import java.io.File
 import java.io.FileOutputStream
 
 class MainViewModel : ViewModel() {
 
+    companion object {
+        val saturation = SATURATION.toFloat().mapNumber(0f, 255f, 0f, 1f)
+        val brightness = BRIGHTNESS.toFloat().mapNumber(0f, 255f, 0f, 1f)
+    }
+
     private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
-    private val _color = MutableLiveData<Int>()
-    val color: LiveData<Int> = _color
+    private val _calculator = MutableLiveData<Calculator>()
+    val calculator: LiveData<Calculator> = _calculator
 
     fun exportPNG(view: View, text: String) {
         val bitmap = view.drawToBitmap()
@@ -42,16 +51,19 @@ class MainViewModel : ViewModel() {
     }
 
     private fun showOutPutParameters(text: String) {
-
         val calculator = Calculator(text)
         val nSides = calculator.getNumberOfSides()
         val firstGradientColor = calculator.getFirstGradientColor()
         val secondGradientColor = calculator.getSecondGradientColor()
-        _text.value = "nSides: $nSides, firstGradientColor: $firstGradientColor, secondGradientColor: $secondGradientColor"
+
+        val firstGradientColorRGB = Color.HSVToColor(floatArrayOf(firstGradientColor.toFloat(), saturation, brightness))
+        val secondGradientColorRGB = Color.HSVToColor(floatArrayOf(secondGradientColor.toFloat(), saturation, brightness))
+
+        _text.value = "nSides: $nSides, firstColor: $firstGradientColorRGB, secondColor: $secondGradientColorRGB"
     }
 
     private fun changeBackground(text: String) {
         val calculator = Calculator(text)
-        _color.value = calculator.getFirstGradientColor()
+        _calculator.value = calculator
     }
 }

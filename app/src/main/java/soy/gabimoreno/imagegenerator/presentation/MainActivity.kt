@@ -1,13 +1,11 @@
 package soy.gabimoreno.imagegenerator.presentation
 
-import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import soy.gabimoreno.imagegenerator.R
-import soy.gabimoreno.imagegenerator.domain.BRIGHTNESS
-import soy.gabimoreno.imagegenerator.domain.SATURATION
 import soy.gabimoreno.imagegenerator.framework.SearchManager
 import soy.gabimoreno.imagegenerator.framework.requestPermission
 
@@ -19,16 +17,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestPermission(this)
-        initIv()
-        initEt()
+        initImage()
+        initEditText()
         initText()
     }
 
-    private fun initIv() {
-        viewModel.color.observe(
+    private fun initImage() {
+        viewModel.calculator.observe(
             this,
-            Observer { color ->
-                iv.setBackgroundColor(Color.HSVToColor(floatArrayOf(color.toFloat(), SATURATION.toFloat(), BRIGHTNESS.toFloat())))
+            Observer { calculator ->
+
+                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(616261, 131313))
+                iv.background = gradientDrawable
+
+//                iv.setBackgroundColor(Color.HSVToColor(floatArrayOf(calculator.getFirstGradientColor().toFloat(), SATURATION.toFloat(), BRIGHTNESS.toFloat())))
             }
         )
     }
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun initEt() {
+    private fun initEditText() {
         SearchManager(
             et,
             object : SearchManager.Listener {
