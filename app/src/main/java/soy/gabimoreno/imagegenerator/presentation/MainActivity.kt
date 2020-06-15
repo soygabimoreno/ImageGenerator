@@ -8,8 +8,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import soy.gabimoreno.imagegenerator.R
 import soy.gabimoreno.imagegenerator.domain.BRIGHTNESS
 import soy.gabimoreno.imagegenerator.domain.SATURATION
+import soy.gabimoreno.imagegenerator.framework.SearchManager
 import soy.gabimoreno.imagegenerator.framework.requestPermission
-import soy.gabimoreno.imagegenerator.framework.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         requestPermission(this)
         initIv()
-        initBtn()
+        initEt()
         initText()
     }
 
@@ -33,17 +33,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun initBtn() {
-        btn.setOnClickListener {
-            val input = et.text.toString()
-            if (input.isNotEmpty() && input.length > 1) {
-                exportPNG()
-            } else {
-                toast("Write a valid input text")
-            }
-        }
-    }
-
     private fun initText() {
         viewModel.text.observe(
             this,
@@ -51,6 +40,16 @@ class MainActivity : AppCompatActivity() {
                 tv.text = text
             }
         )
+    }
+
+    private fun initEt() {
+        SearchManager(
+            et,
+            object : SearchManager.Listener {
+                override fun onComplete(input: String) {
+                    exportPNG()
+                }
+            })
     }
 
     private fun exportPNG() {
