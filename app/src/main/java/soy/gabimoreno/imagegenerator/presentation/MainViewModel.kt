@@ -42,7 +42,12 @@ class MainViewModel : ViewModel() {
     }
 
     private fun showOutPutParameters(text: String) {
-        _text.value = text
+
+        val calculator = Calculator(text)
+        val nSides = calculator.getNumberOfSides()
+        val firstGradientColor = calculator.getFirstGradientColor()
+        val secondGradientColor = calculator.getSecondGradientColor()
+        _text.value = "nSides: $nSides, firstGradientColor: $firstGradientColor, secondGradientColor: $secondGradientColor"
     }
 
     private fun changeBackground(text: String) {

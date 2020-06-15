@@ -54,6 +54,9 @@ class Calculator(private val input: String) {
             if (index > 0) {
                 index = polygonSize - index
             }
+            if (index < 0) {
+                index += polygonSize
+            }
             index
         }
         val polygon = Polygon.values()[position]

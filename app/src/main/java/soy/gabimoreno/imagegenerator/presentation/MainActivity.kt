@@ -9,6 +9,7 @@ import soy.gabimoreno.imagegenerator.R
 import soy.gabimoreno.imagegenerator.domain.BRIGHTNESS
 import soy.gabimoreno.imagegenerator.domain.SATURATION
 import soy.gabimoreno.imagegenerator.framework.requestPermission
+import soy.gabimoreno.imagegenerator.framework.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,8 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBtn() {
         btn.setOnClickListener {
-            if (et.text.isNotEmpty()) {
+            val input = et.text.toString()
+            if (input.isNotEmpty() && input.length > 1) {
                 exportPNG()
+            } else {
+                toast("Write a valid input text")
             }
         }
     }
