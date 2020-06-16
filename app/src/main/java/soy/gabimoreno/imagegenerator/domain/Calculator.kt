@@ -12,12 +12,12 @@ class Calculator(private val input: String) {
         return polygon.nSides
     }
 
-    fun getFirstGradientColor(): Int {
+    fun getFirstGradientHue(): Int {
         val polygon = getPolygonFromFirstLetter()
         return polygon.hue
     }
 
-    fun getSecondGradientColor(): Int {
+    fun getSecondGradientHue(): Int {
         val polygon = getPolygonFromLetter()
         return polygon.hue
     }
@@ -45,6 +45,9 @@ class Calculator(private val input: String) {
             var index = steps
             if (index > polygonSize) {
                 index -= polygonSize
+            }
+            if (index == polygonSize) {
+                index = 0
             }
             index
         } else {
