@@ -1,5 +1,6 @@
 package soy.gabimoreno.imagegenerator.presentation
 
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -29,22 +30,29 @@ class MainActivity : AppCompatActivity() {
             Observer { calculator ->
                 val firstHue = calculator.getFirstGradientHue()
                 val secondHue = calculator.getSecondGradientHue()
-//                val firstColor = HueToRGBConverter(firstHue).get()
-//                val secondColor = HueToRGBConverter(secondHue).get()
+                val outputColor1 = HueToRGBConverter(firstHue).get()
+                val outputColor2 = HueToRGBConverter(secondHue).get()
+                val firstColor = outputColor1.hueToColor()
+                val secondColor = outputColor2.hueToColor()
 
-                val outputColor = HueToRGBConverter(firstHue).get()
-                val hexStringColor = Integer.toHexString(outputColor)
-                val foo = java.lang.Long.parseLong(hexStringColor, 16)
-                val foo2 = foo.toInt()
-
-                val firstColorLiteral = 0xFFFF0000
-                val secondColorLiteral = 0xFFFFFF00
-                val firstColor = firstColorLiteral.toInt()
-                val secondColor = secondColorLiteral.toInt()
                 val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(firstColor, secondColor))
                 iv.background = gradientDrawable
             }
         )
+    }
+
+    private fun Int.hueToColor(): Int {
+        val hexStringColor = Integer.toHexString(this)
+
+        val r = hexStringColor.subSequence(2, 3).toString()
+        val g = hexStringColor.subSequence(4, 5).toString()
+        val b = hexStringColor.subSequence(6, 7).toString()
+
+        val rDec = Integer.parseInt(r, 16)
+        val gDec = Integer.parseInt(g, 16)
+        val bDec = Integer.parseInt(b, 16)
+
+        return Color.argb(255, rDec, gDec, bDec)
     }
 
     private fun initText() {
