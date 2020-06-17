@@ -20,8 +20,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         requestPermission(this)
         initImages()
-        initEditText()
         initText()
+        initEditText()
+        initButton()
     }
 
     private fun initImages() {
@@ -55,13 +56,19 @@ class MainActivity : AppCompatActivity() {
             et,
             object : SearchManager.Listener {
                 override fun onComplete(input: String) {
-                    exportPNG()
+                    viewModel.showImageAndParameters(input)
                 }
             })
     }
 
+    private fun initButton() {
+        btn.setOnClickListener {
+            exportPNG()
+        }
+    }
+
     private fun exportPNG() {
         val text = et.text.toString()
-        viewModel.exportPNG(ivBackground, text)
+        viewModel.exportPNG(ivBackground, text) // TODO: Export both imageviews
     }
 }

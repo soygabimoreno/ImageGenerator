@@ -1,5 +1,6 @@
 package soy.gabimoreno.imagegenerator.presentation
 
+import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.os.Environment
 import android.provider.MediaStore
@@ -8,6 +9,8 @@ import androidx.core.view.drawToBitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import soy.gabimoreno.imagegenerator.domain.CANVAS_HEIGHT
+import soy.gabimoreno.imagegenerator.domain.CANVAS_WIDTH
 import soy.gabimoreno.imagegenerator.domain.Calculator
 import soy.gabimoreno.imagegenerator.domain.HueToRGBConverter
 import java.io.File
@@ -28,6 +31,7 @@ class MainViewModel : ViewModel() {
         val pathname = "$dir/image"
         val file = File(pathname)
         val fos = FileOutputStream(pathname)
+        Bitmap.createScaledBitmap(bitmap, CANVAS_WIDTH, CANVAS_HEIGHT, false)
         bitmap.compress(CompressFormat.PNG, 100, fos)
         fos.close()
 
@@ -37,12 +41,9 @@ class MainViewModel : ViewModel() {
             file.name,
             file.name
         )
-
-        showOutPutParameters(text)
-        changeBackground(text)
     }
 
-    private fun showOutPutParameters(text: String) {
+    fun showImageAndParameters(text: String) {
         val calculator = Calculator(text)
         val nSides = calculator.getNumberOfSides()
         val firstHue = calculator.getFirstGradientHue()
@@ -52,6 +53,8 @@ class MainViewModel : ViewModel() {
         val secondColor = HueToRGBConverter(secondHue).getHexString()
 
         _text.value = "nSides: $nSides, firstColor: $firstColor, secondColor: $secondColor"
+
+        changeBackground(text)
     }
 
     private fun changeBackground(text: String) {
