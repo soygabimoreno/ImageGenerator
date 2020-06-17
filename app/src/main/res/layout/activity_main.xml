@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="150dp"
-        android:layout_height="75dp"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
+        android:background="#DDDDDD"
         android:text="Hello World!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
