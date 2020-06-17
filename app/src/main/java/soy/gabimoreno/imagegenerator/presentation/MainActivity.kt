@@ -9,6 +9,7 @@ import soy.gabimoreno.imagegenerator.R
 import soy.gabimoreno.imagegenerator.domain.HueToRGBConverter
 import soy.gabimoreno.imagegenerator.framework.SearchManager
 import soy.gabimoreno.imagegenerator.framework.requestPermission
+import soy.gabimoreno.imagegenerator.presentation.customview.Polygon
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,12 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestPermission(this)
-        initImage()
+        initImages()
         initEditText()
         initText()
     }
 
-    private fun initImage() {
+    private fun initImages() {
         viewModel.calculator.observe(
             this,
             Observer { calculator ->
@@ -32,7 +33,10 @@ class MainActivity : AppCompatActivity() {
                 val firstRGB = HueToRGBConverter(firstHue).get()
                 val secondRGB = HueToRGBConverter(secondHue).get()
                 val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BL_TR, intArrayOf(firstRGB, secondRGB))
-                iv.background = gradientDrawable
+                ivBackground.background = gradientDrawable
+
+                val nSides = calculator.getNumberOfSides()
+                ivPolygon.background = Polygon(nSides)
             }
         )
     }
@@ -58,6 +62,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun exportPNG() {
         val text = et.text.toString()
-        viewModel.exportPNG(iv, text)
+        viewModel.exportPNG(ivBackground, text)
     }
 }

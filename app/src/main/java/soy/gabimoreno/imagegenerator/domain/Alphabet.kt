@@ -1,6 +1,6 @@
 package soy.gabimoreno.imagegenerator.domain
 
-enum class Polygon(
+enum class Alphabet(
     val letter: String,
     val nSides: Int,
     val hue: Int

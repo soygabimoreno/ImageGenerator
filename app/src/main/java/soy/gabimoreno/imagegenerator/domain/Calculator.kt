@@ -8,63 +8,63 @@ private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
 class Calculator(private val input: String) {
 
     fun getNumberOfSides(): Int {
-        val polygon = getPolygonFromFirstLetter()
-        return polygon.nSides
+        val alphabet = getAlphabetFromFirstLetter()
+        return alphabet.nSides
     }
 
     fun getFirstGradientHue(): Int {
-        val polygon = getPolygonFromFirstLetter()
-        return polygon.hue
+        val alphabet = getAlphabetFromFirstLetter()
+        return alphabet.hue
     }
 
     fun getSecondGradientHue(): Int {
-        val polygon = getPolygonFromLetter()
-        return polygon.hue
+        val alphabet = getAlphabetFromLetter()
+        return alphabet.hue
     }
 
-    private fun getPolygonFromFirstLetter(): Polygon {
+    private fun getAlphabetFromFirstLetter(): Alphabet {
         val firstLetter = input
             .first()
             .toString()
             .unaccent()
             .toUpperCase(Locale.US)
-        val polygon = Polygon.valueOf(firstLetter)
-        println(polygon.toString())
-        return polygon
+        val alphabet = Alphabet.valueOf(firstLetter)
+        println(alphabet.toString())
+        return alphabet
     }
 
-    private fun getPolygonFromLetter(): Polygon {
+    private fun getAlphabetFromLetter(): Alphabet {
         val secondLetter = input[1]
         val formattedLetter = secondLetter.toString()
             .unaccent()
             .toUpperCase(Locale.US)
-        val ordinal = Polygon.valueOf(formattedLetter).ordinal
+        val ordinal = Alphabet.valueOf(formattedLetter).ordinal
         val position = if (isSecondLetterMajorThanFirstOne()) {
             val steps = ordinal + getFirstWordLength() - 1
-            val polygonSize = Polygon.values().size
+            val alphabetSize = Alphabet.values().size
             var index = steps
-            if (index > polygonSize) {
-                index -= polygonSize
+            if (index > alphabetSize) {
+                index -= alphabetSize
             }
-            if (index == polygonSize) {
+            if (index == alphabetSize) {
                 index = 0
             }
             index
         } else {
             val steps = getFirstWordLength() - 1 - ordinal
-            val polygonSize = Polygon.values().size
+            val alphabetSize = Alphabet.values().size
             var index = steps
             if (index > 0) {
-                index = polygonSize - index
+                index = alphabetSize - index
             }
             if (index < 0) {
-                index += polygonSize
+                index += alphabetSize
             }
             index
         }
-        val polygon = Polygon.values()[position]
-        println(polygon.toString())
-        return polygon
+        val alphabet = Alphabet.values()[position]
+        println(alphabet.toString())
+        return alphabet
     }
 
     fun getFirstWordLength(): Int {
