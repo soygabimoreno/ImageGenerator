@@ -1,6 +1,5 @@
 package soy.gabimoreno.imagegenerator.presentation
 
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -30,29 +29,12 @@ class MainActivity : AppCompatActivity() {
             Observer { calculator ->
                 val firstHue = calculator.getFirstGradientHue()
                 val secondHue = calculator.getSecondGradientHue()
-                val outputColor1 = HueToRGBConverter(firstHue).get()
-                val outputColor2 = HueToRGBConverter(secondHue).get()
-                val firstColor = outputColor1.hueToColor()
-                val secondColor = outputColor2.hueToColor()
-
-                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(firstColor, secondColor))
+                val firstRGB = HueToRGBConverter(firstHue).get()
+                val secondRGB = HueToRGBConverter(secondHue).get()
+                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BL_TR, intArrayOf(firstRGB, secondRGB))
                 iv.background = gradientDrawable
             }
         )
-    }
-
-    private fun Int.hueToColor(): Int {
-        val hexStringColor = Integer.toHexString(this)
-
-        val r = hexStringColor.subSequence(2, 3).toString()
-        val g = hexStringColor.subSequence(4, 5).toString()
-        val b = hexStringColor.subSequence(6, 7).toString()
-
-        val rDec = Integer.parseInt(r, 16)
-        val gDec = Integer.parseInt(g, 16)
-        val bDec = Integer.parseInt(b, 16)
-
-        return Color.argb(255, rDec, gDec, bDec)
     }
 
     private fun initText() {

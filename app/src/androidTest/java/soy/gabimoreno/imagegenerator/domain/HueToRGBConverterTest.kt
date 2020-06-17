@@ -9,9 +9,16 @@ import org.junit.runner.RunWith
 class HueToRGBConverterTest {
 
     @Test
-    fun if_hue_is_108_then_the_RGB_is_0xFF239845() {
+    fun if_hue_is_83_then_the_RGB_color_is_minus_9323170() {
         val hue = 108
         val rgb = HueToRGBConverter(hue).get()
-        assertEquals(-12694981, rgb)
+        assertEquals(-9323170, rgb)
+    }
+
+    @Test
+    fun if_hue_is_83_then_the_RGB_hex_string_color_is_() {
+        val hue = 108
+        val rgbHexString = HueToRGBConverter(hue).getHexString()
+        assertEquals("#71bd5e", rgbHexString)
     }
 }

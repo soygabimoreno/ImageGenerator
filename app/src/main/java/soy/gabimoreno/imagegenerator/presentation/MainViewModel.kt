@@ -48,8 +48,8 @@ class MainViewModel : ViewModel() {
         val firstHue = calculator.getFirstGradientHue()
         val secondHue = calculator.getSecondGradientHue()
 
-        val firstColor = HueToRGBConverter(firstHue).get()
-        val secondColor = HueToRGBConverter(secondHue).get()
+        val firstColor = HueToRGBConverter(firstHue).getHexString()
+        val secondColor = HueToRGBConverter(secondHue).getHexString()
 
         _text.value = "nSides: $nSides, firstColor: $firstColor, secondColor: $secondColor"
     }
