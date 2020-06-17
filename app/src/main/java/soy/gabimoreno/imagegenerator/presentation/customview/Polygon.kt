@@ -48,7 +48,6 @@ class Polygon(private val nSides: Int) : Drawable() {
         val centerY = bounds.top + height / 2
         path.reset()
         path.addPath(createPolygon(size, centerX, centerY))
-        path.addPath(createPolygon((size * .8f).toInt(), centerX, centerY))
     }
 
     private fun createPolygon(size: Int, centerX: Int, centerY: Int): Path {
@@ -57,13 +56,13 @@ class Polygon(private val nSides: Int) : Drawable() {
         val polygonPath = auxPath
         polygonPath.reset()
         polygonPath.moveTo(
-            centerX + radius * cos(0.0).toFloat(),
-            centerY + radius * sin(0.0).toFloat()
+            centerX + radius * sin(0.0).toFloat(),
+            centerY + radius * -cos(0.0).toFloat()
         )
         for (i in 1 until nSides) {
             polygonPath.lineTo(
-                centerX + radius * cos(section * i.toDouble()).toFloat(),
-                centerY + radius * sin(section * i.toDouble()).toFloat()
+                centerX + radius * sin(section * i.toDouble()).toFloat(),
+                centerY + radius * -cos(section * i.toDouble()).toFloat()
             )
         }
         polygonPath.close()
