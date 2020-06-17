@@ -1,9 +1,6 @@
 package soy.gabimoreno.imagegenerator.domain
 
-import java.text.Normalizer
 import java.util.*
-
-private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
 
 class Calculator(private val input: String) {
 
@@ -26,7 +23,6 @@ class Calculator(private val input: String) {
         val firstLetter = input
             .first()
             .toString()
-            .unaccent()
             .toUpperCase(Locale.US)
         val alphabet = Alphabet.valueOf(firstLetter)
         println(alphabet.toString())
@@ -36,7 +32,6 @@ class Calculator(private val input: String) {
     private fun getAlphabetFromLetter(): Alphabet {
         val secondLetter = input[1]
         val formattedLetter = secondLetter.toString()
-            .unaccent()
             .toUpperCase(Locale.US)
         val ordinal = Alphabet.valueOf(formattedLetter).ordinal
         val position = if (isSecondLetterMajorThanFirstOne()) {
@@ -76,10 +71,5 @@ class Calculator(private val input: String) {
         val firstLetter = input[0].toLowerCase()
         val secondLetter = input[1].toLowerCase()
         return secondLetter - firstLetter > 0
-    }
-
-    private fun CharSequence.unaccent(): String {
-        val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
-        return REGEX_UNACCENT.replace(temp, "")
     }
 }
