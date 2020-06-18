@@ -31,8 +31,8 @@ class MainViewModel : ViewModel() {
         val pathname = "$dir/image"
         val file = File(pathname)
         val fos = FileOutputStream(pathname)
-        Bitmap.createScaledBitmap(bitmap, CANVAS_WIDTH, CANVAS_HEIGHT, false)
-        bitmap.compress(CompressFormat.PNG, 100, fos)
+        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, CANVAS_WIDTH, CANVAS_HEIGHT, false)
+        scaledBitmap.compress(CompressFormat.PNG, 100, fos)
         fos.close()
 
         MediaStore.Images.Media.insertImage(
@@ -45,6 +45,8 @@ class MainViewModel : ViewModel() {
 
     fun showImageAndParameters(text: String) {
         val calculator = Calculator(text)
+        _calculator.value = calculator
+
         val nSides = calculator.getNumberOfSides()
         val firstHue = calculator.getFirstGradientHue()
         val secondHue = calculator.getSecondGradientHue()
@@ -53,12 +55,5 @@ class MainViewModel : ViewModel() {
         val secondColor = HueToRGBConverter(secondHue).getHexString()
 
         _text.value = "nSides: $nSides, firstColor: $firstColor, secondColor: $secondColor"
-
-        changeBackground(text)
-    }
-
-    private fun changeBackground(text: String) {
-        val calculator = Calculator(text)
-        _calculator.value = calculator
     }
 }
