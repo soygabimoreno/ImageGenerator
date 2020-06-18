@@ -1,12 +1,10 @@
 package soy.gabimoreno.imagegenerator.presentation
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import soy.gabimoreno.imagegenerator.R
-import soy.gabimoreno.imagegenerator.domain.HueToRGBConverter
 import soy.gabimoreno.imagegenerator.framework.SearchManager
 import soy.gabimoreno.imagegenerator.framework.requestPermission
 import soy.gabimoreno.imagegenerator.presentation.customview.Polygon
@@ -26,17 +24,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initImages() {
-        viewModel.calculator.observe(
+        viewModel.gradientDrawable.observe(
             this,
-            Observer { calculator ->
-                val firstHue = calculator.getFirstGradientHue()
-                val secondHue = calculator.getSecondGradientHue()
-                val firstRGB = HueToRGBConverter(firstHue).get()
-                val secondRGB = HueToRGBConverter(secondHue).get()
-                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BL_TR, intArrayOf(firstRGB, secondRGB))
+            Observer { gradientDrawable ->
                 ivBackground.background = gradientDrawable
+            }
+        )
 
-                val nSides = calculator.getNumberOfSides()
+        viewModel.nSides.observe(
+            this,
+            Observer { nSides ->
                 ivPolygon.background = Polygon(nSides)
             }
         )
@@ -63,12 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initButton() {
         btn.setOnClickListener {
-            exportPNG()
+            viewModel.exportPNG(clOutput)
         }
-    }
-
-    private fun exportPNG() {
-        val text = et.text.toString()
-        viewModel.exportPNG(ivBackground, text) // TODO: Export both imageviews
     }
 }

@@ -7,26 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
-    <ImageView
-        android:id="@+id/ivBackground"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clOutput"
         android:layout_width="300dp"
         android:layout_height="150dp"
         android:layout_marginTop="16dp"
-        android:background="#DDDDDD"
-        android:text="Hello World!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/ivPolygon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@id/ivBackground"
-        app:layout_constraintEnd_toEndOf="@id/ivBackground"
-        app:layout_constraintStart_toStartOf="@id/ivBackground"
-        app:layout_constraintTop_toTopOf="@id/ivBackground"/>
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#DDDDDD"
+            android:text="Hello World!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/ivPolygon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv"
@@ -37,7 +47,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivBackground"/>
+        app:layout_constraintTop_toBottomOf="@id/clOutput"/>
 
     <EditText
         android:id="@+id/et"
