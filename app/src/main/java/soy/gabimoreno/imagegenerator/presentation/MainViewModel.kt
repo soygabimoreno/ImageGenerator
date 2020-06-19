@@ -4,13 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.GradientDrawable
 import android.os.Environment
-import android.view.View
-import androidx.core.view.drawToBitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import soy.gabimoreno.imagegenerator.domain.CANVAS_HEIGHT
-import soy.gabimoreno.imagegenerator.domain.CANVAS_WIDTH
 import soy.gabimoreno.imagegenerator.domain.Calculator
 import soy.gabimoreno.imagegenerator.domain.HueToRGBConverter
 import java.io.File
@@ -27,14 +23,7 @@ class MainViewModel : ViewModel() {
     private val _nSides = MutableLiveData<Int>()
     val nSides: LiveData<Int> = _nSides
 
-    fun exportPNG(view: View) {
-        val bitmap = view.drawToBitmap()
-        val scaledBitmap = Bitmap.createScaledBitmap(
-            bitmap,
-            CANVAS_WIDTH,
-            CANVAS_HEIGHT,
-            true
-        )
+    fun exportPNG(bitmap: Bitmap) {
         val dir = File(Environment.getExternalStorageDirectory().toString() + "/ImageGenerator")
         if (!dir.exists()) {
             dir.mkdirs()
@@ -42,7 +31,7 @@ class MainViewModel : ViewModel() {
         val file = File(dir, "image.png")
         try {
             val fos = FileOutputStream(file)
-            scaledBitmap.compress(CompressFormat.PNG, 100, fos)
+            bitmap.compress(CompressFormat.PNG, 100, fos)
             fos.flush()
             fos.close()
         } catch (e: Exception) {

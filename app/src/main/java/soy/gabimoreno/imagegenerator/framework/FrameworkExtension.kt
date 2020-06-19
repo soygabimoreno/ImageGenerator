@@ -3,6 +3,7 @@ package soy.gabimoreno.imagegenerator.framework
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 
@@ -20,4 +21,20 @@ fun EditText.setOnTextChangedListener(onTextChanged: (CharSequence?) -> Unit) {
 
         override fun afterTextChanged(editable: Editable?) {}
     })
+}
+
+fun View.setWidthParam(width: Int) {
+    val params = layoutParams
+    if (params != null && width != params.width) {
+        params.width = width
+        layoutParams = params
+    }
+}
+
+fun View.setHeightParam(height: Int) {
+    val params = layoutParams
+    if (params != null && height != params.height) {
+        params.height = height
+        layoutParams = params
+    }
 }

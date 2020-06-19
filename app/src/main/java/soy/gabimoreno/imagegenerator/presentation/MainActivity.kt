@@ -1,12 +1,19 @@
 package soy.gabimoreno.imagegenerator.presentation
 
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import soy.gabimoreno.imagegenerator.R
+import soy.gabimoreno.imagegenerator.domain.CANVAS_HEIGHT
+import soy.gabimoreno.imagegenerator.domain.CANVAS_WIDTH
 import soy.gabimoreno.imagegenerator.framework.SearchManager
 import soy.gabimoreno.imagegenerator.framework.requestPermission
+import soy.gabimoreno.imagegenerator.framework.setHeightParam
+import soy.gabimoreno.imagegenerator.framework.setWidthParam
 import soy.gabimoreno.imagegenerator.presentation.customview.Polygon
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +67,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun initButton() {
         btn.setOnClickListener {
-            viewModel.exportPNG(clOutput)
+            getBitmapFromLayoutPerform { bitmap ->
+                viewModel.exportPNG(bitmap)
+            }
         }
+    }
+
+    private fun getBitmapFromLayoutPerform(callback: (Bitmap) -> Unit) {
+        val width = clOutput.width
+        val height = clOutput.height
+        clOutput.setWidthParam(CANVAS_WIDTH)
+        clOutput.setHeightParam(CANVAS_HEIGHT)
+        Handler().postDelayed({
+            val bitmap = clOutput.drawToBitmap()
+            callback(bitmap)
+            clOutput.setWidthParam(width)
+            clOutput.setHeightParam(height)
+        }, 50)
     }
 }
