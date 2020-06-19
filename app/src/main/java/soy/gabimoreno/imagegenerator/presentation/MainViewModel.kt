@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.GradientDrawable
 import android.os.Environment
-import android.provider.MediaStore
 import android.view.View
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.LiveData
@@ -30,22 +29,25 @@ class MainViewModel : ViewModel() {
 
     fun exportPNG(view: View) {
         val bitmap = view.drawToBitmap()
-        val applicationContext = view.context.applicationContext
-        val dir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val pathname = "$dir/image"
-        val file = File(pathname)
-        val fos = FileOutputStream(pathname)
-        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, CANVAS_WIDTH, CANVAS_HEIGHT, false)
-        scaledBitmap.compress(CompressFormat.PNG, 100, fos)
-        fos.flush()
-        fos.close()
-
-        MediaStore.Images.Media.insertImage(
-            applicationContext.contentResolver,
-            file.absolutePath,
-            file.name,
-            file.name
+        val scaledBitmap = Bitmap.createScaledBitmap(
+            bitmap,
+            CANVAS_WIDTH,
+            CANVAS_HEIGHT,
+            true
         )
+        val dir = File(Environment.getExternalStorageDirectory().toString() + "/ImageGenerator")
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+        val file = File(dir, "image.png")
+        try {
+            val fos = FileOutputStream(file)
+            scaledBitmap.compress(CompressFormat.PNG, 100, fos)
+            fos.flush()
+            fos.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun showImageAndParameters(text: String) {
