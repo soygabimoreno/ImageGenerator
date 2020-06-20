@@ -13,7 +13,6 @@ import java.io.File
 import java.io.FileOutputStream
 
 class MainViewModel : ViewModel() {
-
     private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
@@ -23,12 +22,14 @@ class MainViewModel : ViewModel() {
     private val _nSides = MutableLiveData<Int>()
     val nSides: LiveData<Int> = _nSides
 
+    private lateinit var calculator: Calculator
+
     fun exportPNG(bitmap: Bitmap) {
         val dir = File(Environment.getExternalStorageDirectory().toString() + "/ImageGenerator")
         if (!dir.exists()) {
             dir.mkdirs()
         }
-        val file = File(dir, "image.png")
+        val file = File(dir, "${calculator.getFirstWord()}.png")
         try {
             val fos = FileOutputStream(file)
             bitmap.compress(CompressFormat.PNG, 100, fos)
@@ -40,7 +41,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun showImageAndParameters(text: String) {
-        val calculator = Calculator(text)
+        calculator = Calculator(text)
         val firstHue = calculator.getFirstGradientHue()
         val secondHue = calculator.getSecondGradientHue()
         val firstRGB = HueToRGBConverter(firstHue).get()

@@ -56,10 +56,8 @@ class Calculator(private val input: String) {
         return Alphabet.valueOf(letter)
     }
 
-    fun getFirstWordLength(): Int {
-        val firstWord = input.substringBefore(" ")
-        return firstWord.length
-    }
+    fun getFirstWord() = input.substringBefore(" ")
+    fun getFirstWordLength() = getFirstWord().length
 
     fun isThirdLetterMajorThanFirstOne(): Boolean {
         val firstLetter = input[1].toLowerCase()
