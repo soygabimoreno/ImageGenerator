@@ -1,6 +1,9 @@
-package soy.gabimoreno.imagegenerator.domain
+package soy.gabimoreno.imagegenerator.framework
 
 import android.graphics.Color
+import soy.gabimoreno.imagegenerator.domain.BRIGHTNESS
+import soy.gabimoreno.imagegenerator.domain.SATURATION
+import soy.gabimoreno.imagegenerator.domain.mapNumber
 
 class HueToRGBConverter(private val hue: Int) {
 
@@ -11,7 +14,13 @@ class HueToRGBConverter(private val hue: Int) {
 
     fun get(): Int {
         println("h: $hue, s: $saturation, b: $brightness")
-        val color = Color.HSVToColor(floatArrayOf(hue.toFloat(), saturation, brightness))
+        val color = Color.HSVToColor(
+            floatArrayOf(
+                hue.toFloat(),
+                saturation,
+                brightness
+            )
+        )
         val red = Color.red(color)
         val green = Color.green(color)
         val blue = Color.blue(color)

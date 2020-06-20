@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import soy.gabimoreno.imagegenerator.framework.HueToRGBConverter
 
 @RunWith(AndroidJUnit4::class)
 class HueToRGBConverterTest {

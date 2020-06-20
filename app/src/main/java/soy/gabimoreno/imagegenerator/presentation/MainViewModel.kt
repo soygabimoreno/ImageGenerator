@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import soy.gabimoreno.imagegenerator.domain.Calculator
-import soy.gabimoreno.imagegenerator.domain.HueToRGBConverter
+import soy.gabimoreno.imagegenerator.framework.HueToRGBConverter
 import java.io.File
 import java.io.FileOutputStream
 
