@@ -38,7 +38,7 @@ class Calculator(private val input: String) {
             index
         }
         val securePosition = when {
-            position == alphabetSize || position < 0 -> 0
+            position == alphabetSize -> 0
             position < 0 -> position + alphabetSize
             else -> position
         }
