@@ -25,7 +25,7 @@ class MainViewModel : ViewModel() {
     private lateinit var calculator: Calculator
 
     fun exportPNG(bitmap: Bitmap) {
-        val dir = File(Environment.getExternalStorageDirectory().toString() + "/ImageGenerator")
+        val dir = File("${Environment.getExternalStorageDirectory()}/ImageGenerator")
         if (!dir.exists()) {
             dir.mkdirs()
         }
