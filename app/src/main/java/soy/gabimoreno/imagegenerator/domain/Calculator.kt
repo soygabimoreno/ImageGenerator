@@ -10,32 +10,27 @@ class Calculator(private val input: String) {
     }
 
     fun getFirstGradientHue(): Int {
-        val alphabet = getAlphabetFromFirstLetter()
+        val alphabet = getAlphabetFromSecondLetter()
         return alphabet.hue
     }
 
     fun getSecondGradientHue(): Int {
-        val alphabet = getAlphabetFromLetter()
+        val alphabet = getAlphabetFromAlgorithm()
         return alphabet.hue
     }
 
     private fun getAlphabetFromFirstLetter(): Alphabet {
-        val firstLetter = input
-            .first()
-            .toString()
-            .toUpperCase(Locale.US)
-        val alphabet = Alphabet.valueOf(firstLetter)
-        println(alphabet.toString())
-        return alphabet
+        return findAlphabetByPosition(0)
     }
 
-    private fun getAlphabetFromLetter(): Alphabet {
-        val secondLetter = input[1]
-        val formattedLetter = secondLetter.toString()
-            .toUpperCase(Locale.US)
-        val ordinal = Alphabet.valueOf(formattedLetter).ordinal
+    private fun getAlphabetFromSecondLetter(): Alphabet {
+        return findAlphabetByPosition(1)
+    }
+
+    private fun getAlphabetFromAlgorithm(): Alphabet {
+        val ordinal = findAlphabetByPosition(1).ordinal
         val position = if (isThirdLetterMajorThanFirstOne()) {
-            val steps = ordinal + getFirstWordLength() - 1
+            val steps = ordinal + getFirstWordLength() - 2
             val alphabetSize = Alphabet.values().size
             var index = steps
             if (index > alphabetSize) {
@@ -46,7 +41,7 @@ class Calculator(private val input: String) {
             }
             index
         } else {
-            val steps = getFirstWordLength() - 1 - ordinal
+            val steps = getFirstWordLength() - 2 - ordinal
             val alphabetSize = Alphabet.values().size
             var index = steps
             if (index > 0) {
@@ -60,6 +55,13 @@ class Calculator(private val input: String) {
         val alphabet = Alphabet.values()[position]
         println(alphabet.toString())
         return alphabet
+    }
+
+    private fun findAlphabetByPosition(position: Int): Alphabet {
+        val letter = input[position]
+            .toString()
+            .toUpperCase(Locale.US)
+        return Alphabet.valueOf(letter)
     }
 
     fun getFirstWordLength(): Int {

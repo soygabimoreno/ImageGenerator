@@ -15,27 +15,35 @@ class CalculatorTest {
     }
 
     @Test
-    fun `if input is "Parálisis por Análisis", then the first hue of the gradient is 208`() {
-        val input = "Parálisis por Análisis"
+    fun `if input is "Afilar la sierra", then the first hue of the gradient is 69`() {
+        val input = "Afilar la sierra"
         val calculator = Calculator(input)
         val output = calculator.getFirstGradientHue()
-        assertEquals(208, output)
+        assertEquals(69, output)
     }
 
     @Test
-    fun `if input is "Parálisis por Análisis", then the second hue of the gradient is 249`() {
-        val input = "Parálisis por Análisis"
+    fun `if input is "Afilar la sierra", then the second hue of the gradient is 125`() {
+        val input = "Afilar la sierra"
         val calculator = Calculator(input)
         val output = calculator.getSecondGradientHue()
-        assertEquals(111, output)
+        assertEquals(125, output)
     }
 
     @Test
-    fun `if input is "Ownership & Accountability", then the second hue of the gradient is 55`() {
-        val input = "Ownership & Accountability"
+    fun `if input is "Meditacion", then the first hue of the gradient is 5`() {
+        val input = "Meditacion"
+        val calculator = Calculator(input)
+        val output = calculator.getFirstGradientHue()
+        assertEquals(55, output)
+    }
+
+    @Test
+    fun `if input is "Meditacion", then the second hue of the gradient is 305`() {
+        val input = "Meditacion"
         val calculator = Calculator(input)
         val output = calculator.getSecondGradientHue()
-        assertEquals(166, output)
+        assertEquals(305, output)
     }
 
     @Test
