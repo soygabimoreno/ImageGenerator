@@ -21,30 +21,28 @@ class Calculator(private val input: String) {
 
     private fun getAlphabetFromAlgorithm(): Alphabet {
         val ordinal = findAlphabetByPosition(1).ordinal
+        val alphabetSize = Alphabet.values().size
         val position = if (isThirdLetterMajorThanFirstOne()) {
             val steps = ordinal + getFirstWordLength() - 2
-            val alphabetSize = Alphabet.values().size
             var index = steps
             if (index > alphabetSize) {
                 index -= alphabetSize
             }
-            if (index == alphabetSize) {
-                index = 0
-            }
             index
         } else {
             val steps = getFirstWordLength() - 2 - ordinal
-            val alphabetSize = Alphabet.values().size
             var index = steps
             if (index > 0) {
                 index = alphabetSize - index
             }
-            if (index < 0) {
-                index += alphabetSize
-            }
             index
         }
-        val alphabet = Alphabet.values()[position]
+        val securePosition = when {
+            position == alphabetSize || position < 0 -> 0
+            position < 0 -> position + alphabetSize
+            else -> position
+        }
+        val alphabet = Alphabet.values()[securePosition]
         println(alphabet.toString())
         return alphabet
     }
