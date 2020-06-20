@@ -5,26 +5,18 @@ import java.util.*
 class Calculator(private val input: String) {
 
     fun getNumberOfSides(): Int {
-        val alphabet = getAlphabetFromFirstLetter()
+        val alphabet = findAlphabetByPosition(0)
         return alphabet.nSides
     }
 
     fun getFirstGradientHue(): Int {
-        val alphabet = getAlphabetFromSecondLetter()
+        val alphabet = findAlphabetByPosition(1)
         return alphabet.hue
     }
 
     fun getSecondGradientHue(): Int {
         val alphabet = getAlphabetFromAlgorithm()
         return alphabet.hue
-    }
-
-    private fun getAlphabetFromFirstLetter(): Alphabet {
-        return findAlphabetByPosition(0)
-    }
-
-    private fun getAlphabetFromSecondLetter(): Alphabet {
-        return findAlphabetByPosition(1)
     }
 
     private fun getAlphabetFromAlgorithm(): Alphabet {
