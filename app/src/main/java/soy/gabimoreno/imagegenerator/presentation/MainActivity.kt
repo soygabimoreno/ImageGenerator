@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import soy.gabimoreno.imagegenerator.R
 import soy.gabimoreno.imagegenerator.domain.CANVAS_HEIGHT
 import soy.gabimoreno.imagegenerator.domain.CANVAS_WIDTH
+import soy.gabimoreno.imagegenerator.domain.POLYGON_HEIGHT
+import soy.gabimoreno.imagegenerator.domain.POLYGON_WIDTH
 import soy.gabimoreno.imagegenerator.framework.SearchManager
 import soy.gabimoreno.imagegenerator.framework.requestPermission
 import soy.gabimoreno.imagegenerator.framework.setHeightParam
@@ -74,15 +76,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getBitmapFromLayoutPerform(callback: (Bitmap) -> Unit) {
-        val width = clOutput.width
-        val height = clOutput.height
+        val bgWidth = ivBackground.width
+        val bgHeight = ivBackground.height
+        val polygonWidth = ivPolygon.width
+        val polygonHeight = ivPolygon.height
         clOutput.setWidthParam(CANVAS_WIDTH)
         clOutput.setHeightParam(CANVAS_HEIGHT)
+        ivBackground.setWidthParam(CANVAS_WIDTH)
+        ivBackground.setHeightParam(CANVAS_HEIGHT)
+        ivPolygon.setWidthParam(POLYGON_WIDTH)
+        ivPolygon.setHeightParam(POLYGON_HEIGHT)
         Handler().postDelayed({
             val bitmap = clOutput.drawToBitmap()
             callback(bitmap)
-            clOutput.setWidthParam(width)
-            clOutput.setHeightParam(height)
+            clOutput.setWidthParam(bgWidth)
+            clOutput.setHeightParam(bgHeight)
+            ivBackground.setWidthParam(bgWidth)
+            ivBackground.setHeightParam(bgHeight)
+            ivPolygon.setWidthParam(polygonWidth)
+            ivPolygon.setHeightParam(polygonHeight)
         }, 50)
     }
 }
