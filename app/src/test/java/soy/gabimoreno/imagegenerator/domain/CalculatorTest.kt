@@ -27,7 +27,7 @@ class CalculatorTest {
         val input = "Parálisis por Análisis"
         val calculator = Calculator(input)
         val output = calculator.getSecondGradientHue()
-        assertEquals(249, output)
+        assertEquals(111, output)
     }
 
     @Test
@@ -35,7 +35,7 @@ class CalculatorTest {
         val input = "Ownership & Accountability"
         val calculator = Calculator(input)
         val output = calculator.getSecondGradientHue()
-        assertEquals(55, output)
+        assertEquals(166, output)
     }
 
     @Test
@@ -55,18 +55,18 @@ class CalculatorTest {
     }
 
     @Test
-    fun `if input is "Hola" second letter isSecondLetterMajorThanFirstOne returns true`() {
-        val input = "Hola"
+    fun `if input is "Zapato" isThirdLetterMajorThanFirstOne returns true`() {
+        val input = "Zapato"
         val calculator = Calculator(input)
-        val secondLetterMajorThanFirstOne = calculator.isSecondLetterMajorThanFirstOne()
+        val secondLetterMajorThanFirstOne = calculator.isThirdLetterMajorThanFirstOne()
         assertTrue(secondLetterMajorThanFirstOne)
     }
 
     @Test
-    fun `if input is "Zapato" second letter isSecondLetterMajorThanFirstOne returns false`() {
-        val input = "Zapato"
+    fun `if input is "Hola" isThirdLetterMajorThanFirstOne returns false`() {
+        val input = "Hola"
         val calculator = Calculator(input)
-        val secondLetterMajorThanFirstOne = calculator.isSecondLetterMajorThanFirstOne()
+        val secondLetterMajorThanFirstOne = calculator.isThirdLetterMajorThanFirstOne()
         assertFalse(secondLetterMajorThanFirstOne)
     }
 }

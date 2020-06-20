@@ -10,7 +10,7 @@ class SearchManager(
 ) {
 
     companion object {
-        const val CHARS_SEARCH_LENGTH = 2
+        const val CHARS_SEARCH_LENGTH = 3
         const val DELAY_IN_MILLIS = 10L
     }
 

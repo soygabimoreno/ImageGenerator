@@ -34,7 +34,7 @@ class Calculator(private val input: String) {
         val formattedLetter = secondLetter.toString()
             .toUpperCase(Locale.US)
         val ordinal = Alphabet.valueOf(formattedLetter).ordinal
-        val position = if (isSecondLetterMajorThanFirstOne()) {
+        val position = if (isThirdLetterMajorThanFirstOne()) {
             val steps = ordinal + getFirstWordLength() - 1
             val alphabetSize = Alphabet.values().size
             var index = steps
@@ -67,9 +67,9 @@ class Calculator(private val input: String) {
         return firstWord.length
     }
 
-    fun isSecondLetterMajorThanFirstOne(): Boolean {
-        val firstLetter = input[0].toLowerCase()
-        val secondLetter = input[1].toLowerCase()
+    fun isThirdLetterMajorThanFirstOne(): Boolean {
+        val firstLetter = input[1].toLowerCase()
+        val secondLetter = input[2].toLowerCase()
         return secondLetter - firstLetter > 0
     }
 }
